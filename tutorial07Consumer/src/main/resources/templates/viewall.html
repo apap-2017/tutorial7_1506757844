@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>View All Students</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    	<link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet"/>
+    	
+    </head>
+    <body>
+    	<!-- Import Datatable Javascript -->
+    	<script type="text/javascript" src="http://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    	<script>
+		   	$(document).ready(function(){
+		   	    $('#myTable').DataTable();
+		   	});
+    	</script>
+    	
+        <h1>All Students</h1>
+      	<table id="myTable">
+      		<thead>
+      			<tr>
+      				<th th:text="No"></th>
+      				<th th:text="NPM"></th>
+      				<th th:text="Name"></th>
+      				<th th:text="GPA"></th>
+      				<th th:text="Cumlaude"></th>
+      				<th th:text="Delete"></th>
+      				<th th:text="Update"></th>
+      			</tr>
+      		</thead>
+      		<tbody>
+      			<tr th:each="student,iterationStatus: ${students}">
+      				<th th:text="${iterationStatus.count}"></th>
+      				<th th:text="${student.npm}"></th>
+      				<th th:text="${student.name}"></th>
+      				<th th:text="${student.gpa}"></th>
+      				<th th:if="${student.gpa}>=3.49">Yes</th>
+      				<th th:unless="${student.gpa>=3.49}">No</th>
+      				<td th:text="${student.gpa}>=3.49?'Cum Laude!':'Sangat Memuaskan!'"></td>
+      				<th> <a th:href="'/student/delete/' + ${student.npm}" > Delete Data</a> </th>
+      				<th> <a th:href="'/student/update/' + ${student.npm}" > Updated Data</a> </th>
+      			</tr>
+      		</tbody>
+      	</table>
+    	
+    </body>
+</html>
